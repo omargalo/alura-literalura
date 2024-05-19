@@ -39,7 +39,7 @@ public class LiteraluraApplication implements CommandLineRunner {
                     3 - Listar libros de mi colección
                     4 - Listar autores de mi colección
                     5 - Listar top 5 libros de mi colección
-                    6 - Listar libros por idioma
+                    6 - Listar libros de mi colección por idioma
 
                     0 - Salir
                     ******************************************
