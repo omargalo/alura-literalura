@@ -44,7 +44,7 @@ Al ejecutar la aplicación, se presentará un menú con las siguientes opciones:
 ![spring boot](assets/images/02_menu.png)
 ![spring boot](assets/images/03_saveBook.png)
 ![spring boot](assets/images/04_saveBookByAuthor.png)
-![spring boot](assets/images/05_aliveAuthorByYear.png)
+![spring boot](assets/images/05_aliveAuthorsByYear.png)
 
 
 ## Contribuciones
