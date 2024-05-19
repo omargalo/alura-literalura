@@ -39,6 +39,7 @@ public class LiteraluraApplication implements CommandLineRunner {
                     3 - Listar libros de mi colección
                     4 - Listar autores de mi colección
                     5 - Listar top 5 libros de mi colección
+                    6 - Listar libros por idioma
 
                     0 - Salir
                     ******************************************
@@ -63,6 +64,9 @@ public class LiteraluraApplication implements CommandLineRunner {
 				case 5:
 					listarMiTop();
 					break;
+				case 6:
+					listarLibrosPorIdioma(teclado);
+					
 				case 0:
 					System.out.println("Cerrando la aplicación...");
 					break;
@@ -73,6 +77,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 	}
 
 	private void buscarLibros(Scanner teclado) {
+		System.out.println("****************************");
 		System.out.println("Ingrese el libro a buscar:");
 		String query = teclado.nextLine().toLowerCase();
 		var libros = gutendexService.buscarLibros(query);
@@ -111,6 +116,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 	}
 
 	private void buscarAutor(Scanner teclado) {
+		System.out.println("****************************");
 		System.out.println("Ingrese el nombre del autor:");
 		String autor = teclado.nextLine().toLowerCase();
 		var libros = gutendexService.buscarLibrosPorAutor(autor);
@@ -155,6 +161,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 			return;
 		}
 
+		System.out.println("****************************");
 		System.out.println("Libros en tu colección:");
 		for (BookEntity libro : misLibros) {
 			Collectors Collectors = null;
@@ -171,6 +178,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 			return;
 		}
 
+		System.out.println("****************************");
 		System.out.println("Autores en tu colección:");
 		for (AuthorEntity autor : misAutores) {
 			System.out.println("Nombre: " + autor.getName() + " - Año de nacimiento: " + autor.getBirthYear() + " - Año de fallecimiento: " + autor.getDeathYear());
@@ -184,9 +192,29 @@ public class LiteraluraApplication implements CommandLineRunner {
 			return;
 		}
 
+		System.out.println("****************************");
 		System.out.println("Top 5 libros en tu colección:");
 		for (BookEntity libro : topLibros) {
 			System.out.println("ID: " + libro.getId() + " - Título: " + libro.getTitle() + " - Descargas: " + libro.getDownloadCount());
 		}
 	}
+
+	private void listarLibrosPorIdioma(Scanner teclado) {
+		System.out.println("Ingrese en para inglés, es para español):");
+		String idioma = teclado.nextLine().toLowerCase();
+		List<BookEntity> librosPorIdioma = gutendexService.listarLibrosPorIdioma(idioma);
+		if (librosPorIdioma.isEmpty()) {
+			System.out.println("No hay libros en el idioma especificado.");
+			return;
+		}
+
+		System.out.println("****************************");
+		System.out.println("Libros en " + idioma + ":");
+		for (BookEntity libro : librosPorIdioma) {
+			System.out.println("ID: " + libro.getId() + " - Título: " + libro.getTitle() + " - Autor(es): " + libro.getAuthors().stream()
+					.map(AuthorEntity::getName)
+					.collect(Collectors.joining(", ")));
+		}
+	}
+
 }

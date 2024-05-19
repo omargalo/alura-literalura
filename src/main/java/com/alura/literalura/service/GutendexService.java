@@ -94,4 +94,11 @@ public class GutendexService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<BookEntity> listarLibrosPorIdioma(String idioma) {
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getLanguages().contains(idioma))
+                .collect(Collectors.toList());
+    }
+
 }
