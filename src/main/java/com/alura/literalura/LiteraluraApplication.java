@@ -33,6 +33,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 		var opcion = -1;
 		while (opcion != 0) {
 			var menu = """
+                    ******************************************
                     1 - Buscar libros en Gutendex
                     2 - Buscar autor en Gutendex
                     3 - Listar libros de mi colección
@@ -40,6 +41,7 @@ public class LiteraluraApplication implements CommandLineRunner {
                     5 - Listar top 5 libros de mi colección
 
                     0 - Salir
+                    ******************************************
                     """;
 			System.out.println(menu);
 			opcion = teclado.nextInt();
