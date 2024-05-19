@@ -1,30 +1,32 @@
 package com.alura.literalura.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 public class BookEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String title;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AuthorEntity> authors;
 
-    // Getters and setters
-    public Long getId() {
+    @ElementCollection
+    private List<String> languages;
+
+    private String htmlFormat;
+
+    private int downloadCount;
+
+    // Getters y setters
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -42,5 +44,29 @@ public class BookEntity {
 
     public void setAuthors(List<AuthorEntity> authors) {
         this.authors = authors;
+    }
+
+    public List<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<String> languages) {
+        this.languages = languages;
+    }
+
+    public String getHtmlFormat() {
+        return htmlFormat;
+    }
+
+    public void setHtmlFormat(String htmlFormat) {
+        this.htmlFormat = htmlFormat;
+    }
+
+    public int getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(int downloadCount) {
+        this.downloadCount = downloadCount;
     }
 }
