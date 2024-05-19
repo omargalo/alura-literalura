@@ -41,9 +41,13 @@ spring.jpa.format-sql=true
 ## Uso de la aplicación
 Al ejecutar la aplicación, se presentará un menú con las siguientes opciones:
 ![spring boot](assets/images/01_spring.png)
+
 ![spring boot](assets/images/02_menu.png)
+
 ![spring boot](assets/images/03_saveBook.png)
+
 ![spring boot](assets/images/04_saveBookByAuthor.png)
+
 ![spring boot](assets/images/05_aliveAuthorsByYear.png)
 
 
