@@ -40,6 +40,7 @@ public class LiteraluraApplication implements CommandLineRunner {
                     4 - Listar autores de mi colección
                     5 - Listar top 5 libros de mi colección
                     6 - Listar libros de mi colección por idioma
+                    7 - Listar autores vivos en un año especifico
 
                     0 - Salir
                     ******************************************
@@ -66,6 +67,10 @@ public class LiteraluraApplication implements CommandLineRunner {
 					break;
 				case 6:
 					listarLibrosPorIdioma(teclado);
+					break;
+				case 7:
+					listarAutoresVivos(teclado);
+					break;
 					
 				case 0:
 					System.out.println("Cerrando la aplicación...");
@@ -200,6 +205,7 @@ public class LiteraluraApplication implements CommandLineRunner {
 	}
 
 	private void listarLibrosPorIdioma(Scanner teclado) {
+		System.out.println("****************************");
 		System.out.println("Ingrese en para inglés, es para español):");
 		String idioma = teclado.nextLine().toLowerCase();
 		List<BookEntity> librosPorIdioma = gutendexService.listarLibrosPorIdioma(idioma);
@@ -214,6 +220,29 @@ public class LiteraluraApplication implements CommandLineRunner {
 			System.out.println("ID: " + libro.getId() + " - Título: " + libro.getTitle() + " - Autor(es): " + libro.getAuthors().stream()
 					.map(AuthorEntity::getName)
 					.collect(Collectors.joining(", ")));
+		}
+	}
+
+	private void listarAutoresVivos(Scanner teclado) {
+		System.out.println("****************************");
+		System.out.println("Ingrese el año:");
+		while (!teclado.hasNextInt()) {
+			System.out.println("Entrada inválida. Por favor, ingrese un año válido.");
+			teclado.next(); // consume el input inválido
+		}
+		int year = teclado.nextInt();
+		teclado.nextLine(); // consume newline
+
+		List<AuthorEntity> autoresVivos = gutendexService.listarAutoresVivosEnAno(year);
+		if (autoresVivos.isEmpty()) {
+			System.out.println("No hay autores vivos en el año especificado.");
+			return;
+		}
+
+		System.out.println("****************************");
+		System.out.println("Autores vivos en el año " + year + ":");
+		for (AuthorEntity autor : autoresVivos) {
+			System.out.println("Nombre: " + autor.getName() + " - Año de nacimiento: " + autor.getBirthYear() + " - Año de fallecimiento: " + autor.getDeathYear());
 		}
 	}
 

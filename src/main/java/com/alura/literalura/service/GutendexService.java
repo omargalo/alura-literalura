@@ -101,4 +101,9 @@ public class GutendexService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<AuthorEntity> listarAutoresVivosEnAno(int year) {
+        return authorRepository.findByBirthYearLessThanEqualAndDeathYearGreaterThanEqual(year, year);
+    }
+
 }
